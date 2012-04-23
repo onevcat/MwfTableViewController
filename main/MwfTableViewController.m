@@ -218,12 +218,16 @@
 }
 - (void)willShowLoadingView:(UIView *)loadingView;
 {
-  MwfDefaultTableLoadingView * defaultLoadingView = (MwfDefaultTableLoadingView *)loadingView;
-  [defaultLoadingView.activityIndicatorView startAnimating];
+  if ([loadingView isKindOfClass:[MwfDefaultTableLoadingView class]]) {
+    MwfDefaultTableLoadingView * defaultLoadingView = (MwfDefaultTableLoadingView *)loadingView;
+    [defaultLoadingView.activityIndicatorView startAnimating];
+  }
 }
 - (void)didHideLoadingView:(UIView *)loadingView;
 {
-  MwfDefaultTableLoadingView * defaultLoadingView = (MwfDefaultTableLoadingView *)loadingView;
-  [defaultLoadingView.activityIndicatorView stopAnimating];
+  if ([loadingView isKindOfClass:[MwfDefaultTableLoadingView class]]) {
+    MwfDefaultTableLoadingView * defaultLoadingView = (MwfDefaultTableLoadingView *)loadingView;
+    [defaultLoadingView.activityIndicatorView stopAnimating];
+  }
 }
 @end
