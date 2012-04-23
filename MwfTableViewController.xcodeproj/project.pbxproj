@@ -17,7 +17,12 @@
 		3D3B104115450C0E0066A74B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102715450C0E0066A74B /* UIKit.framework */; };
 		3D3B104215450C0E0066A74B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102915450C0E0066A74B /* Foundation.framework */; };
 		3D3B104A15450C0F0066A74B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B104815450C0F0066A74B /* InfoPlist.strings */; };
-		3D3B104D15450C0F0066A74B /* MwfTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B104C15450C0F0066A74B /* MwfTableViewControllerTests.m */; };
+		3D3B105A15450E980066A74B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B105915450E980066A74B /* Podfile */; };
+		3D3B1065154510650066A74B /* MwfTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B1064154510650066A74B /* MwfTableViewController.m */; };
+		3D3B107315452AB60066A74B /* MwfDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B107115452AB50066A74B /* MwfDemoTableViewController.m */; };
+		3D3B107D154582040066A74B /* MwfTableViewControllerSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B107C154582040066A74B /* MwfTableViewControllerSpecs.m */; };
+		42C9AF5ACD9B4040A449C7A0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3D6CFD5A1849A18AFD0235 /* libPods.a */; };
+		E4201A0E338A470DBCECC91F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3D6CFD5A1849A18AFD0235 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,22 +36,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		255696F397A848C58876C238 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		3D3B102315450C0E0066A74B /* MwfTableViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MwfTableViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3B102715450C0E0066A74B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3D3B102915450C0E0066A74B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3D3B102B15450C0E0066A74B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		3D3B102F15450C0E0066A74B /* MwfTableViewController-Info.plist */ = {isa = PBXFileReference; path = "MwfTableViewController-Info.plist"; sourceTree = "<group>"; };
+		3D3B102F15450C0E0066A74B /* MwfTableViewController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MwfTableViewController-Info.plist"; sourceTree = "<group>"; };
 		3D3B103115450C0E0066A74B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D3B103315450C0E0066A74B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3D3B103515450C0E0066A74B /* MwfTableViewController-Prefix.pch */ = {isa = PBXFileReference; path = "MwfTableViewController-Prefix.pch"; sourceTree = "<group>"; };
-		3D3B103615450C0E0066A74B /* MwfAppDelegate.h */ = {isa = PBXFileReference; path = MwfAppDelegate.h; sourceTree = "<group>"; };
+		3D3B103515450C0E0066A74B /* MwfTableViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MwfTableViewController-Prefix.pch"; sourceTree = "<group>"; };
+		3D3B103615450C0E0066A74B /* MwfAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MwfAppDelegate.h; sourceTree = "<group>"; };
 		3D3B103715450C0E0066A74B /* MwfAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MwfAppDelegate.m; sourceTree = "<group>"; };
 		3D3B103E15450C0E0066A74B /* MwfTableViewControllerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MwfTableViewControllerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3B103F15450C0E0066A74B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		3D3B104715450C0E0066A74B /* MwfTableViewControllerTests-Info.plist */ = {isa = PBXFileReference; path = "MwfTableViewControllerTests-Info.plist"; sourceTree = "<group>"; };
+		3D3B104715450C0E0066A74B /* MwfTableViewControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MwfTableViewControllerTests-Info.plist"; sourceTree = "<group>"; };
 		3D3B104915450C0F0066A74B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3D3B104B15450C0F0066A74B /* MwfTableViewControllerTests.h */ = {isa = PBXFileReference; path = MwfTableViewControllerTests.h; sourceTree = "<group>"; };
-		3D3B104C15450C0F0066A74B /* MwfTableViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MwfTableViewControllerTests.m; sourceTree = "<group>"; };
+		3D3B105915450E980066A74B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		3D3B1063154510650066A74B /* MwfTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MwfTableViewController.h; sourceTree = "<group>"; };
+		3D3B1064154510650066A74B /* MwfTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MwfTableViewController.m; sourceTree = "<group>"; };
+		3D3B107015452AB50066A74B /* MwfDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MwfDemoTableViewController.h; sourceTree = "<group>"; };
+		3D3B107115452AB50066A74B /* MwfDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MwfDemoTableViewController.m; sourceTree = "<group>"; };
+		3D3B107B154581D50066A74B /* SpecHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecHelper.h; sourceTree = "<group>"; };
+		3D3B107C154582040066A74B /* MwfTableViewControllerSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MwfTableViewControllerSpecs.m; sourceTree = "<group>"; };
+		9A3D6CFD5A1849A18AFD0235 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +69,7 @@
 				3D3B102815450C0E0066A74B /* UIKit.framework in Frameworks */,
 				3D3B102A15450C0E0066A74B /* Foundation.framework in Frameworks */,
 				3D3B102C15450C0E0066A74B /* CoreGraphics.framework in Frameworks */,
+				42C9AF5ACD9B4040A449C7A0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +80,7 @@
 				3D3B104015450C0E0066A74B /* SenTestingKit.framework in Frameworks */,
 				3D3B104115450C0E0066A74B /* UIKit.framework in Frameworks */,
 				3D3B104215450C0E0066A74B /* Foundation.framework in Frameworks */,
+				E4201A0E338A470DBCECC91F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +90,13 @@
 		3D3B101815450C0E0066A74B = {
 			isa = PBXGroup;
 			children = (
-				3D3B102D15450C0E0066A74B /* MwfTableViewController */,
-				3D3B104515450C0E0066A74B /* MwfTableViewControllerTests */,
+				3D3B105915450E980066A74B /* Podfile */,
+				3D3B105815450D7D0066A74B /* main */,
+				3D3B102D15450C0E0066A74B /* demo */,
+				3D3B104515450C0E0066A74B /* test */,
 				3D3B102615450C0E0066A74B /* Frameworks */,
 				3D3B102415450C0E0066A74B /* Products */,
+				255696F397A848C58876C238 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,18 +116,21 @@
 				3D3B102915450C0E0066A74B /* Foundation.framework */,
 				3D3B102B15450C0E0066A74B /* CoreGraphics.framework */,
 				3D3B103F15450C0E0066A74B /* SenTestingKit.framework */,
+				9A3D6CFD5A1849A18AFD0235 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3D3B102D15450C0E0066A74B /* MwfTableViewController */ = {
+		3D3B102D15450C0E0066A74B /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				3D3B102E15450C0E0066A74B /* Supporting Files */,
 				3D3B103615450C0E0066A74B /* MwfAppDelegate.h */,
 				3D3B103715450C0E0066A74B /* MwfAppDelegate.m */,
-				3D3B102E15450C0E0066A74B /* Supporting Files */,
+				3D3B107015452AB50066A74B /* MwfDemoTableViewController.h */,
+				3D3B107115452AB50066A74B /* MwfDemoTableViewController.m */,
 			);
-			path = MwfTableViewController;
+			path = demo;
 			sourceTree = "<group>";
 		};
 		3D3B102E15450C0E0066A74B /* Supporting Files */ = {
@@ -124,14 +144,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		3D3B104515450C0E0066A74B /* MwfTableViewControllerTests */ = {
+		3D3B104515450C0E0066A74B /* test */ = {
 			isa = PBXGroup;
 			children = (
-				3D3B104B15450C0F0066A74B /* MwfTableViewControllerTests.h */,
-				3D3B104C15450C0F0066A74B /* MwfTableViewControllerTests.m */,
 				3D3B104615450C0E0066A74B /* Supporting Files */,
+				3D3B107B154581D50066A74B /* SpecHelper.h */,
+				3D3B107C154582040066A74B /* MwfTableViewControllerSpecs.m */,
 			);
-			path = MwfTableViewControllerTests;
+			path = test;
 			sourceTree = "<group>";
 		};
 		3D3B104615450C0E0066A74B /* Supporting Files */ = {
@@ -141,6 +161,15 @@
 				3D3B104815450C0F0066A74B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3D3B105815450D7D0066A74B /* main */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B1063154510650066A74B /* MwfTableViewController.h */,
+				3D3B1064154510650066A74B /* MwfTableViewController.m */,
+			);
+			path = main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +182,7 @@
 				3D3B101F15450C0E0066A74B /* Sources */,
 				3D3B102015450C0E0066A74B /* Frameworks */,
 				3D3B102115450C0E0066A74B /* Resources */,
+				34336A12B45C46C4A45118A8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,6 +201,7 @@
 				3D3B103A15450C0E0066A74B /* Frameworks */,
 				3D3B103B15450C0E0066A74B /* Resources */,
 				3D3B103C15450C0E0066A74B /* ShellScript */,
+				34336A12B45C46C4A45118A8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,7 +221,7 @@
 			attributes = {
 				CLASSPREFIX = Mwf;
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = "–MwF";
+				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 3D3B101D15450C0E0066A74B /* Build configuration list for PBXProject "MwfTableViewController" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -216,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3B103215450C0E0066A74B /* InfoPlist.strings in Resources */,
+				3D3B105A15450E980066A74B /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +262,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		34336A12B45C46C4A45118A8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 		3D3B103C15450C0E0066A74B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,6 +298,8 @@
 			files = (
 				3D3B103415450C0E0066A74B /* main.m in Sources */,
 				3D3B103815450C0E0066A74B /* MwfAppDelegate.m in Sources */,
+				3D3B1065154510650066A74B /* MwfTableViewController.m in Sources */,
+				3D3B107315452AB60066A74B /* MwfDemoTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D3B104D15450C0F0066A74B /* MwfTableViewControllerTests.m in Sources */,
+				3D3B107D154582040066A74B /* MwfTableViewControllerSpecs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,10 +391,13 @@
 		3D3B105115450C0F0066A74B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
-				INFOPLIST_FILE = "MwfTableViewController/MwfTableViewController-Info.plist";
+				GCC_PREFIX_HEADER = "demo/MwfTableViewController-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "demo/MwfTableViewController-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -354,26 +405,33 @@
 		3D3B105215450C0F0066A74B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
-				INFOPLIST_FILE = "MwfTableViewController/MwfTableViewController-Info.plist";
+				GCC_PREFIX_HEADER = "demo/MwfTableViewController-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "demo/MwfTableViewController-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		3D3B105415450C0F0066A74B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 255696F397A848C58876C238 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MwfTableViewController.app/MwfTableViewController";
+				DSTROOT = /tmp/xcodeproj.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
-				INFOPLIST_FILE = "MwfTableViewControllerTests/MwfTableViewControllerTests-Info.plist";
+				GCC_PREFIX_HEADER = "demo/MwfTableViewController-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "test/MwfTableViewControllerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -381,16 +439,20 @@
 		};
 		3D3B105515450C0F0066A74B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 255696F397A848C58876C238 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MwfTableViewController.app/MwfTableViewController";
+				DSTROOT = /tmp/xcodeproj.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
-				INFOPLIST_FILE = "MwfTableViewControllerTests/MwfTableViewControllerTests-Info.plist";
+				GCC_PREFIX_HEADER = "demo/MwfTableViewController-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "test/MwfTableViewControllerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -415,6 +477,7 @@
 				3D3B105215450C0F0066A74B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3D3B105315450C0F0066A74B /* Build configuration list for PBXNativeTarget "MwfTableViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +486,7 @@
 				3D3B105515450C0F0066A74B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
