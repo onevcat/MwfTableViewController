@@ -1,0 +1,430 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D3B102815450C0E0066A74B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102715450C0E0066A74B /* UIKit.framework */; };
+		3D3B102A15450C0E0066A74B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102915450C0E0066A74B /* Foundation.framework */; };
+		3D3B102C15450C0E0066A74B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102B15450C0E0066A74B /* CoreGraphics.framework */; };
+		3D3B103215450C0E0066A74B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B103015450C0E0066A74B /* InfoPlist.strings */; };
+		3D3B103415450C0E0066A74B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B103315450C0E0066A74B /* main.m */; };
+		3D3B103815450C0E0066A74B /* MwfAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B103715450C0E0066A74B /* MwfAppDelegate.m */; };
+		3D3B104015450C0E0066A74B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B103F15450C0E0066A74B /* SenTestingKit.framework */; };
+		3D3B104115450C0E0066A74B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102715450C0E0066A74B /* UIKit.framework */; };
+		3D3B104215450C0E0066A74B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B102915450C0E0066A74B /* Foundation.framework */; };
+		3D3B104A15450C0F0066A74B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B104815450C0F0066A74B /* InfoPlist.strings */; };
+		3D3B104D15450C0F0066A74B /* MwfTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B104C15450C0F0066A74B /* MwfTableViewControllerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3D3B104315450C0E0066A74B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D3B101A15450C0E0066A74B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D3B102215450C0E0066A74B;
+			remoteInfo = MwfTableViewController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3D3B102315450C0E0066A74B /* MwfTableViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MwfTableViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3B102715450C0E0066A74B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3D3B102915450C0E0066A74B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3D3B102B15450C0E0066A74B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3D3B102F15450C0E0066A74B /* MwfTableViewController-Info.plist */ = {isa = PBXFileReference; path = "MwfTableViewController-Info.plist"; sourceTree = "<group>"; };
+		3D3B103115450C0E0066A74B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3D3B103315450C0E0066A74B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D3B103515450C0E0066A74B /* MwfTableViewController-Prefix.pch */ = {isa = PBXFileReference; path = "MwfTableViewController-Prefix.pch"; sourceTree = "<group>"; };
+		3D3B103615450C0E0066A74B /* MwfAppDelegate.h */ = {isa = PBXFileReference; path = MwfAppDelegate.h; sourceTree = "<group>"; };
+		3D3B103715450C0E0066A74B /* MwfAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MwfAppDelegate.m; sourceTree = "<group>"; };
+		3D3B103E15450C0E0066A74B /* MwfTableViewControllerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MwfTableViewControllerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3B103F15450C0E0066A74B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		3D3B104715450C0E0066A74B /* MwfTableViewControllerTests-Info.plist */ = {isa = PBXFileReference; path = "MwfTableViewControllerTests-Info.plist"; sourceTree = "<group>"; };
+		3D3B104915450C0F0066A74B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3D3B104B15450C0F0066A74B /* MwfTableViewControllerTests.h */ = {isa = PBXFileReference; path = MwfTableViewControllerTests.h; sourceTree = "<group>"; };
+		3D3B104C15450C0F0066A74B /* MwfTableViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MwfTableViewControllerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3D3B102015450C0E0066A74B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3B102815450C0E0066A74B /* UIKit.framework in Frameworks */,
+				3D3B102A15450C0E0066A74B /* Foundation.framework in Frameworks */,
+				3D3B102C15450C0E0066A74B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D3B103A15450C0E0066A74B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3B104015450C0E0066A74B /* SenTestingKit.framework in Frameworks */,
+				3D3B104115450C0E0066A74B /* UIKit.framework in Frameworks */,
+				3D3B104215450C0E0066A74B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3D3B101815450C0E0066A74B = {
+			isa = PBXGroup;
+			children = (
+				3D3B102D15450C0E0066A74B /* MwfTableViewController */,
+				3D3B104515450C0E0066A74B /* MwfTableViewControllerTests */,
+				3D3B102615450C0E0066A74B /* Frameworks */,
+				3D3B102415450C0E0066A74B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3D3B102415450C0E0066A74B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B102315450C0E0066A74B /* MwfTableViewController.app */,
+				3D3B103E15450C0E0066A74B /* MwfTableViewControllerTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3D3B102615450C0E0066A74B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B102715450C0E0066A74B /* UIKit.framework */,
+				3D3B102915450C0E0066A74B /* Foundation.framework */,
+				3D3B102B15450C0E0066A74B /* CoreGraphics.framework */,
+				3D3B103F15450C0E0066A74B /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3D3B102D15450C0E0066A74B /* MwfTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B103615450C0E0066A74B /* MwfAppDelegate.h */,
+				3D3B103715450C0E0066A74B /* MwfAppDelegate.m */,
+				3D3B102E15450C0E0066A74B /* Supporting Files */,
+			);
+			path = MwfTableViewController;
+			sourceTree = "<group>";
+		};
+		3D3B102E15450C0E0066A74B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B102F15450C0E0066A74B /* MwfTableViewController-Info.plist */,
+				3D3B103015450C0E0066A74B /* InfoPlist.strings */,
+				3D3B103315450C0E0066A74B /* main.m */,
+				3D3B103515450C0E0066A74B /* MwfTableViewController-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3D3B104515450C0E0066A74B /* MwfTableViewControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B104B15450C0F0066A74B /* MwfTableViewControllerTests.h */,
+				3D3B104C15450C0F0066A74B /* MwfTableViewControllerTests.m */,
+				3D3B104615450C0E0066A74B /* Supporting Files */,
+			);
+			path = MwfTableViewControllerTests;
+			sourceTree = "<group>";
+		};
+		3D3B104615450C0E0066A74B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B104715450C0E0066A74B /* MwfTableViewControllerTests-Info.plist */,
+				3D3B104815450C0F0066A74B /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3D3B102215450C0E0066A74B /* MwfTableViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D3B105015450C0F0066A74B /* Build configuration list for PBXNativeTarget "MwfTableViewController" */;
+			buildPhases = (
+				3D3B101F15450C0E0066A74B /* Sources */,
+				3D3B102015450C0E0066A74B /* Frameworks */,
+				3D3B102115450C0E0066A74B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MwfTableViewController;
+			productName = MwfTableViewController;
+			productReference = 3D3B102315450C0E0066A74B /* MwfTableViewController.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3D3B103D15450C0E0066A74B /* MwfTableViewControllerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D3B105315450C0F0066A74B /* Build configuration list for PBXNativeTarget "MwfTableViewControllerTests" */;
+			buildPhases = (
+				3D3B103915450C0E0066A74B /* Sources */,
+				3D3B103A15450C0E0066A74B /* Frameworks */,
+				3D3B103B15450C0E0066A74B /* Resources */,
+				3D3B103C15450C0E0066A74B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3D3B104415450C0E0066A74B /* PBXTargetDependency */,
+			);
+			name = MwfTableViewControllerTests;
+			productName = MwfTableViewControllerTests;
+			productReference = 3D3B103E15450C0E0066A74B /* MwfTableViewControllerTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3D3B101A15450C0E0066A74B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Mwf;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "–MwF";
+			};
+			buildConfigurationList = 3D3B101D15450C0E0066A74B /* Build configuration list for PBXProject "MwfTableViewController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3D3B101815450C0E0066A74B;
+			productRefGroup = 3D3B102415450C0E0066A74B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3D3B102215450C0E0066A74B /* MwfTableViewController */,
+				3D3B103D15450C0E0066A74B /* MwfTableViewControllerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3D3B102115450C0E0066A74B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3B103215450C0E0066A74B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D3B103B15450C0E0066A74B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3B104A15450C0F0066A74B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D3B103C15450C0E0066A74B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3D3B101F15450C0E0066A74B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3B103415450C0E0066A74B /* main.m in Sources */,
+				3D3B103815450C0E0066A74B /* MwfAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D3B103915450C0E0066A74B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3B104D15450C0F0066A74B /* MwfTableViewControllerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3D3B104415450C0E0066A74B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D3B102215450C0E0066A74B /* MwfTableViewController */;
+			targetProxy = 3D3B104315450C0E0066A74B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3D3B103015450C0E0066A74B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D3B103115450C0E0066A74B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3D3B104815450C0F0066A74B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D3B104915450C0F0066A74B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3D3B104E15450C0F0066A74B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3D3B104F15450C0F0066A74B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3D3B105115450C0F0066A74B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
+				INFOPLIST_FILE = "MwfTableViewController/MwfTableViewController-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3D3B105215450C0F0066A74B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
+				INFOPLIST_FILE = "MwfTableViewController/MwfTableViewController-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		3D3B105415450C0F0066A74B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MwfTableViewController.app/MwfTableViewController";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
+				INFOPLIST_FILE = "MwfTableViewControllerTests/MwfTableViewControllerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		3D3B105515450C0F0066A74B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MwfTableViewController.app/MwfTableViewController";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MwfTableViewController/MwfTableViewController-Prefix.pch";
+				INFOPLIST_FILE = "MwfTableViewControllerTests/MwfTableViewControllerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3D3B101D15450C0E0066A74B /* Build configuration list for PBXProject "MwfTableViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D3B104E15450C0F0066A74B /* Debug */,
+				3D3B104F15450C0F0066A74B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D3B105015450C0F0066A74B /* Build configuration list for PBXNativeTarget "MwfTableViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D3B105115450C0F0066A74B /* Debug */,
+				3D3B105215450C0F0066A74B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3D3B105315450C0F0066A74B /* Build configuration list for PBXNativeTarget "MwfTableViewControllerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D3B105415450C0F0066A74B /* Debug */,
+				3D3B105515450C0F0066A74B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3D3B101A15450C0E0066A74B /* Project object */;
+}
