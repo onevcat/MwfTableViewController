@@ -95,6 +95,9 @@
     
     // table header top view
     _tableHeaderTopView = [self createTableHeaderTopView];
+    _tableHeaderTopView.frame = CGRectMake(0, -_tableHeaderTopView.bounds.size.height,
+                                           b.size.width, _tableHeaderTopView.bounds.size.height);
+    _tableHeaderTopView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.tableView addSubview:_tableHeaderTopView];
     
     // table footer bottom view
@@ -207,7 +210,7 @@
 - (UIView *) createTableHeaderTopView;
 {
   CGRect b = self.view.bounds;
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, -1000, b.size.width, 1000)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, b.size.width, 1000)];
   view.backgroundColor = kLvBgColor;
   return view;
 }
