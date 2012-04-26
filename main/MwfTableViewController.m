@@ -13,6 +13,269 @@
 #define kLvTextColor   [UIColor colorWithRed:(136/255.f) green:(146/255.f) blue:(165/255.f) alpha:1]
 #define kLvShadowColor [UIColor whiteColor]
 
+#define $ip(_section_,_row_) [NSIndexPath indexPathForRow:(_row_) inSection:(_section_)]
+
+#pragma mark - MwfTableData
+@interface MwfTableDataWithSections : MwfTableData
+@end
+
+@implementation MwfTableData
+- (id)init {
+  self = [super init];
+  if (self) {
+    _dataArray = [[NSMutableArray alloc] init];
+  }
+  return self;
+}
+// Creating instance
++ (MwfTableData *) createTableData;
+{
+  return [[MwfTableData alloc] init];
+}
++ (MwfTableData *) createTableDataWithSections;
+{
+  return [[MwfTableDataWithSections alloc] init];
+}
+// Accessing data
+- (NSUInteger) numberOfSections;
+{
+  return 1;
+}
+- (NSUInteger) numberOfRowsInSection:(NSUInteger)section;
+{
+  NSUInteger rowsCount = NSNotFound;
+  if (section == 0) {
+    rowsCount = _dataArray.count;
+  }
+  return rowsCount;
+}
+- (NSUInteger) numberOfRows;
+{
+  return [self numberOfRowsInSection:0];
+}
+
+- (id)objectForRowAtIndexPath:(mwf_ip)ip;
+{
+  id object = nil;
+  if (ip && ip.section == 0) {
+    object = [_dataArray objectAtIndex:ip.row];
+  } else if (ip.section != 0) {
+    [NSException raise:@"UnsupportedOperation" format:@"Accessing object of non-0 section is not supported."];
+  }
+  return object;
+}
+- (mwf_ip) indexPathForRow:(id)object;
+{
+  NSUInteger idx = NSNotFound;
+  if (object) {
+    idx = [_dataArray indexOfObject:object];
+  }
+  mwf_ip ip = nil;
+  if (idx != NSNotFound) ip = $ip(0,idx);
+  return ip;
+}
+- (NSUInteger) indexForSection:(id)sectionObject;
+{
+  return NSNotFound;
+}
+// Inserting data
+- (NSUInteger)addSection:(id)sectionObject;
+{
+  return [self insertSection:sectionObject atIndex:0];
+}
+- (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;
+{
+  [NSException raise:@"UnsupportedOperation" format:@"Adding section is not supported."];
+  return NSNotFound;
+}
+- (mwf_ip)addRow:(id)object atSection:(NSUInteger)sectionIndex;
+{
+  mwf_ip ip = nil;
+  if (object && sectionIndex == 0) {
+    [_dataArray addObject:object];
+    ip = $ip(0,[_dataArray count]-1);
+  }
+  return ip;
+}
+- (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip ip = nil;
+  if (object && indexPath.section == 0) {
+    [_dataArray insertObject:object atIndex:indexPath.row];
+    ip = indexPath;
+  } else if (indexPath.section != 0) {
+    [NSException raise:@"UnsupportedOperation" format:@"Adding row in non-0 section is not supported."];
+  }
+  return ip;
+}
+- (mwf_ip)addRow:(id)object;
+{
+  return [self addRow:object atSection:0];
+}
+- (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
+{
+  return [self insertRow:object atIndexPath:$ip(0,index)];
+}
+
+// Deleting data
+- (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;
+{
+  [NSException raise:@"UnsupportedOperation" format:@"Removing section is not supported."];
+  return NSNotFound;
+}
+- (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip ip = nil;
+  if (indexPath && indexPath.section == 0) {
+    [_dataArray removeObjectAtIndex:indexPath.row];
+    ip = indexPath;
+  } else if (indexPath.section != 0) {
+    [NSException raise:@"UnsupportedOperation" format:@"Removing row in non-0 section is not supported."];
+  }
+  return ip;
+}
+// Bulk Updates
+- (void)performUpdates:(void(^)(MwfTableData *))updates;
+{
+  
+}
+@end
+
+#pragma mark - MwfTableDataWithSections
+@implementation MwfTableDataWithSections
+// Private Mehos
+- (NSMutableArray *) $section:(NSUInteger)section;
+{
+  return (NSMutableArray *) [_dataArray objectAtIndex:section];
+}
+
+// Init
+- (id)init {
+  self = [super init];
+  if (self) {
+    _sectionArray = [[NSMutableArray alloc] init];
+  }
+  return self;
+}
+
+// Accessing data
+- (NSUInteger) numberOfSections;
+{
+  return [_dataArray count];
+}
+- (NSUInteger) numberOfRowsInSection:(NSUInteger)section;
+{
+  return [self $section:section].count;
+}
+- (NSUInteger) numberOfRows;
+{
+  return [self numberOfRowsInSection:0];
+}
+- (id)objectForRowAtIndexPath:(mwf_ip)ip;
+{
+  id object = nil;
+  if (ip) {
+    object = [[self $section:ip.section] objectAtIndex:ip.row];
+  }
+  return object;
+}
+- (mwf_ip) indexPathForRow:(id)object;
+{
+  NSUInteger section = 0;
+  NSUInteger idx = NSNotFound;
+  if (object) {
+    for (NSArray * arr in _dataArray) {
+      idx = [arr indexOfObject:object];
+      if (idx != NSNotFound) break;
+      section++;
+    }
+  }
+  mwf_ip ip = nil;
+  if (idx != NSNotFound) ip = $ip(section,idx);
+  return ip;
+}
+- (NSUInteger) indexForSection:(id)sectionObject;
+{
+  return [_sectionArray indexOfObject:sectionObject];
+}
+
+// Inserting data
+- (NSUInteger)addSection:(id)sectionObject;
+{
+  NSUInteger section = NSNotFound;
+  if (sectionObject) {
+    [_sectionArray addObject:sectionObject];
+    section = [_sectionArray count]-1;
+    [_dataArray addObject:[[NSMutableArray alloc] init]];
+  }
+  return section;
+}
+- (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;
+{
+  NSUInteger section = NSNotFound;
+  if (sectionObject) {
+    [_sectionArray insertObject:sectionObject atIndex:sectionIndex];
+    [_dataArray insertObject:[[NSMutableArray alloc] init] atIndex:sectionIndex];
+    section = sectionIndex;
+  }
+  return section;
+}
+- (mwf_ip)addRow:(id)object atSection:(NSUInteger)sectionIndex;
+{
+  mwf_ip ip = nil;
+  if (object) {
+    NSMutableArray * arr = [self $section:sectionIndex];
+    [arr addObject:object];
+    ip = $ip(sectionIndex, [arr count]-1);
+  }
+  return ip;
+}
+- (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip ip = nil;
+  if (object && indexPath) {
+    NSMutableArray * arr = [self $section:indexPath.section];
+    [arr insertObject:object atIndex:indexPath.row];
+    ip = indexPath;
+  }
+  return ip;
+}
+- (mwf_ip)addRow:(id)object;
+{
+  return [self addRow:object atSection:0];
+}
+- (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
+{
+  return [self insertRow:object atIndexPath:$ip(0,index)];
+}
+
+// Deleting data
+- (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;
+{
+  NSUInteger section = NSNotFound;
+  [_sectionArray removeObjectAtIndex:sectionIndex];
+  [_dataArray removeObjectAtIndex:sectionIndex];
+  section = sectionIndex;
+  return section;
+}
+- (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip ip = nil;
+  if (indexPath) {
+    NSMutableArray * arr = [self $section:indexPath.section];
+    [arr removeObjectAtIndex:indexPath.row];
+    ip = indexPath;
+  }
+  return ip;
+}
+// Bulk Updates
+- (void)performUpdates:(void(^)(MwfTableData *))updates;
+{
+  
+}
+@end
+
+#pragma mark - MwfDefaultTableLoadingView
 @implementation MwfDefaultTableLoadingView
 @synthesize textLabel = _textLabel;
 @synthesize activityIndicatorView = _activityIndicatorView;
@@ -67,7 +330,7 @@
 }
 @end
 
-
+#pragma mark - MwfTableViewController
 @interface MwfTableViewController ()
 
 @end

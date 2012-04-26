@@ -8,6 +8,42 @@
 
 #import <UIKit/UIKit.h>
 
+
+#pragma mark - MwfTableData
+#define mwf_ip NSIndexPath*
+@interface MwfTableData : NSObject {
+  NSMutableArray * _sectionArray;
+  NSMutableArray * _dataArray;
+}
+// Creating instance
++ (MwfTableData *) createTableData;
++ (MwfTableData *) createTableDataWithSections;
+
+// Accessing data
+- (NSUInteger) numberOfSections;
+- (NSUInteger) numberOfRowsInSection:(NSUInteger)section;
+- (NSUInteger) numberOfRows;
+- (id) objectForRowAtIndexPath:(mwf_ip)ip;
+- (mwf_ip) indexPathForRow:(id)object;
+- (NSUInteger) indexForSection:(id)sectionObject;
+
+// Inserting data
+- (NSUInteger)addSection:(id)sectionObject;
+- (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;
+- (mwf_ip)addRow:(id)object atSection:(NSUInteger)sectionIndex;
+- (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;
+- (mwf_ip)addRow:(id)object;
+- (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
+
+// Deleting data
+- (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;
+- (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;
+
+// Bulk Updates
+- (void)performUpdates:(void(^)(MwfTableData *))updates;
+@end
+
+#pragma mark - MwfTableViewController
 typedef enum {
   MwfTableViewLoadingStyleHeader = 0, // default
   MwfTableViewLoadingStyleFooter

@@ -1,6 +1,6 @@
 PODS_ROOT = $(SRCROOT)/Pods
-HEADER_SEARCH_PATHS = "$(PODS_ROOT)/Headers" "$(PODS_ROOT)/Headers/Expecta" "$(PODS_ROOT)/Headers/OCMock" "$(PODS_ROOT)/Headers/Specta"
+HEADER_SEARCH_PATHS = "$(PODS_ROOT)/Headers" "$(PODS_ROOT)/Headers/ConciseKit" "$(PODS_ROOT)/Headers/Expecta" "$(PODS_ROOT)/Headers/ExtraKit" "$(PODS_ROOT)/Headers/OCMock" "$(PODS_ROOT)/Headers/Specta"
 ALWAYS_SEARCH_USER_PATHS = YES
-OTHER_LDFLAGS = -ObjC -all_load -framework Foundation -ObjC -framework Foundation -framework SenTestingKit
+OTHER_LDFLAGS = -ObjC -all_load -framework Foundation -framework Foundation -ObjC -framework Foundation -framework Foundation -framework SenTestingKit
 FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)"
 LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)"

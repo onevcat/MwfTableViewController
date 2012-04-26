@@ -22,6 +22,7 @@
 		3D3B107315452AB60066A74B /* MwfDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B107115452AB50066A74B /* MwfDemoTableViewController.m */; };
 		3D3B107D154582040066A74B /* MwfTableViewControllerSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B107C154582040066A74B /* MwfTableViewControllerSpecs.m */; };
 		3D3B108915458A9A0066A74B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B108815458A9A0066A74B /* README.md */; };
+		3D3B109115465CEF0066A74B /* MwfTableDataSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B109015465CEF0066A74B /* MwfTableDataSpecs.m */; };
 		42C9AF5ACD9B4040A449C7A0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3D6CFD5A1849A18AFD0235 /* libPods.a */; };
 		E4201A0E338A470DBCECC91F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3D6CFD5A1849A18AFD0235 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		3D3B107B154581D50066A74B /* SpecHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecHelper.h; sourceTree = "<group>"; };
 		3D3B107C154582040066A74B /* MwfTableViewControllerSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MwfTableViewControllerSpecs.m; sourceTree = "<group>"; };
 		3D3B108815458A9A0066A74B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		3D3B109015465CEF0066A74B /* MwfTableDataSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MwfTableDataSpecs.m; sourceTree = "<group>"; };
 		9A3D6CFD5A1849A18AFD0235 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -153,6 +155,7 @@
 				3D3B104615450C0E0066A74B /* Supporting Files */,
 				3D3B107B154581D50066A74B /* SpecHelper.h */,
 				3D3B107C154582040066A74B /* MwfTableViewControllerSpecs.m */,
+				3D3B109015465CEF0066A74B /* MwfTableDataSpecs.m */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3B107D154582040066A74B /* MwfTableViewControllerSpecs.m in Sources */,
+				3D3B109115465CEF0066A74B /* MwfTableDataSpecs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
