@@ -1,13 +1,9 @@
 PODS:
-  - ConciseKit (0.1.2)
   - Expecta (0.1.3)
-  - ExtraKit (0.1.1)
   - OCMock (2.0.1)
   - Specta (0.1.4)
 
 DEPENDENCIES:
-  - ConciseKit
   - Expecta
-  - ExtraKit
   - OCMock
   - Specta
