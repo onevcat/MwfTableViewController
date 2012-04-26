@@ -1,5 +1,8 @@
 #import "SpecHelper.h"
 
+#define $ip(_section,_row) \
+  [NSIndexPath indexPathForRow:(_row) inSection:(_section)]
+
 SpecBegin(MwfTableData)
 
 __block MwfTableData * data = nil;

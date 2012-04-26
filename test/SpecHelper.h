@@ -3,6 +3,6 @@
 #import "Expecta.h"
 #import "OCMock.h"
 #import "MwfTableViewController.h"
-#define CK_SHORTHAND
-#import "ExtraKit.h"
-#import "ConciseKit.h"
+//#define CK_SHORTHAND
+//#import "ExtraKit.h"
+//#import "ConciseKit.h"
