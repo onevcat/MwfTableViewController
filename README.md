@@ -6,7 +6,7 @@ Extension to UITableViewController in attempt to provide additional features tha
 
 ### Show Loading
 
-Configure the loading style, currently support header and footer.
+*Configure the loading style, currently support header and footer.*
 
   ```objective-c
   - (void)viewDidLoad
@@ -16,13 +16,13 @@ Configure the loading style, currently support header and footer.
   }
   ```
 
-Programmatically trigger loading animation
+*Programmatically trigger loading animation*
 
   ```objective-c
   [theTableViewController setLoading:YES animated:YES];
   ```
   
-Programmatically stop loading animation  
+*Programmatically stop loading animation*
     
   ```objective-c
   [theTableViewController setLoading:YES animated:NO];
@@ -57,43 +57,43 @@ If you need to, you can override few methods to provide custom look and feel for
 A class `MwfTableData` is provided to manage your table backing store.
 Instead of using `NSArray`, this class provides all the convenience you need working with table view.
 
-_Creating Table Data_
+*Creating Table Data*
 
 * `+ (MwfTableData *) createTableData;`
 * `+ (MwfTableData *) createTableDataWithSections;`
 
-_Accessing data_
+*Accessing data*
 
 * `- (NSUInteger) numberOfSections;`
 * `- (NSUInteger) numberOfRowsInSection:(NSUInteger)section;`
 * `- (NSUInteger) numberOfRows;`
 * `- (id) objectForSectionAtIndex:(NSUInteger)section;`
-* `- (id) objectForRowAtIndexPath:(mwf_ip)ip;`
-* `- (mwf_ip) indexPathForRow:(id)object;`
+* `- (id) objectForRowAtIndexPath:(NSIndexPath *)ip;`
+* `- (NSIndexPath *) indexPathForRow:(id)object;`
 * `- (NSUInteger) indexForSection:(id)sectionObject;`
 
-_Inserting data_
+*Inserting data*
 
 * `- (NSUInteger)addSection:(id)sectionObject;`
 * `- (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;`
-* `- (mwf_ip)addRow:(id)object inSection:(NSUInteger)sectionIndex;`
-* `- (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;`
-* `- (mwf_ip)addRow:(id)object;`
-* `- (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;`
+* `- (NSIndexPath *)addRow:(id)object inSection:(NSUInteger)sectionIndex;`
+* `- (NSIndexPath *)insertRow:(id)object atIndexPath:(NSIndexPath *)indexPath;`
+* `- (NSIndexPath *)addRow:(id)object;`
+* `- (NSIndexPath *)insertRow:(id)object atIndex:(NSUInteger)index;`
 
-_Deleting data_
+*Deleting data*
 
-* `- (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;`
+* `- (NSIndexPath *)removeRowAtIndexPath:(NSIndexPath *)indexPath;`
 * `- (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;`
 
-_Updating data_
+*Updating data*
 
 * `- (NSUInteger)updateSection:(id)object atIndex:(NSUInteger)section;`
-* `- (mwf_ip)updateRow:(id)object atIndexPath:(mwf_ip)indexPath;`
+* `- (NSIndexPath *)updateRow:(id)object atIndexPath:(NSIndexPath *)indexPath;`
 
 ### Using `MwfTableData` in MwfTableViewController subclasses
 
-_Override `createAndInitTableData`_
+*Override `createAndInitTableData`*
 
 In this method, you can create `MwfTableData` instance using one of the creation methods (with or without section) and initialize with some data.
 
@@ -109,7 +109,7 @@ In this method, you can create `MwfTableData` instance using one of the creation
    }
    ```
 
-_Performing bulk updates_
+*Performing bulk updates*
 
 `MwfTableViewController` provides method `performUpdates:(void(^)(MwfTableData *))updatesBlock` which you can call to perform bulk updates to your table view (add,remove,update sections/rows). This method will update the backing store as well as updating the table view (using `UITableViewRowAnimationAutomatic` for row animation). This method frees you from tracking the changed index sets and paths, and lets you focus on the application logic that updates your table.
 
@@ -124,7 +124,7 @@ _Performing bulk updates_
   }
   ```
   
-_Reload table view_
+*Reload table view*
 
 Setting table data via `tableData` property of `MwfTableViewController` will trigger tableView's `reloadData`.
 
