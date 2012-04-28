@@ -101,10 +101,10 @@ In this method, you can create `MwfTableData` instance using one of the creation
    - (MwfTableData *)createAndInitTableData;
    {
      MwfTableData * tableData = [MwfTableData createTableData];
-     [tableData addRow:$data(@"Row 1")];
-     [tableData addRow:$data(@"Row 2")];
-     [tableData addRow:$data(@"Row 3")];
-     [tableData addRow:$data(@"Load More")];
+     [tableData addRow:@"Row 1"];
+     [tableData addRow:@"Row 2"];
+     [tableData addRow:@"Row 3"];
+     [tableData addRow:@"Load More"];
      return tableData;
    }
    ```
