@@ -8,6 +8,11 @@
 
 #import "MwfTableViewController.h"
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 #define kAnimationDuration 0.3
 #define kLvBgColor     [UIColor colorWithRed:(226/255.f) green:(231/255.f) blue:(237/255.f) alpha:1]
 #define kLvTextColor   [UIColor colorWithRed:(136/255.f) green:(146/255.f) blue:(165/255.f) alpha:1]
@@ -15,10 +20,104 @@
 
 #define $ip(_section_,_row_) [NSIndexPath indexPathForRow:(_row_) inSection:(_section_)]
 
-#pragma mark - MwfTableData
+#define $inMain(_blok_) \
+  dispatch_async(dispatch_get_main_queue(), (_blok_))
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface MwfTableData (PrivateMethods)
+- (NSArray *) dataArray;
+- (NSArray *) sectionArray;
+@end
+
+@interface MwfTableDataUpdates (PrivateMethods)
+- (void) setReloadRows:(NSArray *)reloadRows;
+- (void) setDeleteRows:(NSArray *)deleteRows;
+- (void) setInsertRows:(NSArray *)insertRows;
+- (void) setReloadSections:(NSIndexSet *)reloadSections;
+- (void) setDeleteSections:(NSIndexSet *)deleteSections;
+- (void) setInsertSections:(NSIndexSet *)insertSections;
+@end
+
 @interface MwfTableDataWithSections : MwfTableData
 @end
 
+@interface MwfTableDataProxy : MwfTableData {
+  MwfTableData * _proxiedTableData;
+  NSArray * _originalTableData;
+  NSArray * _originalTableSection;
+  
+  NSMutableArray * _deletedSections;
+  NSMutableArray * _insertedSections;
+  NSMutableArray * _reloadedSections;
+  NSMutableArray * _deletedRows;
+  NSMutableArray * _insertedRows;
+  NSMutableArray * _reloadedRows;
+
+  NSMutableIndexSet * _deletedSectionIndexSets;
+  NSMutableIndexSet * _insertedSectionIndexSets;
+  NSMutableIndexSet * _reloadedSectionIndexSets;
+  NSMutableArray * _deletedRowIndexPaths;
+  NSMutableArray * _insertedRowIndexPaths;
+  NSMutableArray * _reloadedRowIndexPaths;
+}
+@property (nonatomic,readonly) NSIndexSet * deletedSectionIndexSets;
+@property (nonatomic,readonly) NSIndexSet * insertedSectionIndexSets;
+@property (nonatomic,readonly) NSIndexSet * reloadedSectionIndexSets;
+@property (nonatomic,readonly) NSArray * deletedRowIndexPaths;
+@property (nonatomic,readonly) NSArray * insertedRowIndexPaths;
+@property (nonatomic,readonly) NSArray * reloadedRowIndexPaths;
+- (id) initWithTableData:(MwfTableData *)tableData;
+- (void) beginUpdates;
+- (void) endUpdates;
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation MwfTableDataUpdates
+@synthesize reloadRows = _reloadRows;
+@synthesize deleteRows = _deleteRows;
+@synthesize insertRows = _insertRows;
+@synthesize reloadSections = _reloadSections;
+@synthesize deleteSections = _deleteSections;
+@synthesize insertSections = _insertSections;
+- (void)setReloadRows:(NSArray *)reloadRows;
+{
+  _reloadRows = reloadRows;
+}
+- (void)setDeleteRows:(NSArray *)deleteRows;
+{
+  _deleteRows = deleteRows;
+}
+- (void)setInsertRows:(NSArray *)insertRows;
+{
+  _insertRows = insertRows;
+}
+- (void)setInsertSections:(NSIndexSet *)insertSections;
+{
+  _insertSections = insertSections;
+}
+- (void)setDeleteSections:(NSIndexSet *)deleteSections;
+{
+  _deleteSections = deleteSections;
+}
+- (void)setReloadSections:(NSIndexSet *)reloadSections;
+{
+  _reloadSections = reloadSections;
+}
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 @implementation MwfTableData
 - (id)init {
   self = [super init];
@@ -53,7 +152,10 @@
 {
   return [self numberOfRowsInSection:0];
 }
-
+- (id) objectForSectionAtIndex:(NSUInteger)section;
+{
+  return nil;
+}
 - (id)objectForRowAtIndexPath:(mwf_ip)ip;
 {
   id object = nil;
@@ -88,7 +190,7 @@
   [NSException raise:@"UnsupportedOperation" format:@"Adding section is not supported."];
   return NSNotFound;
 }
-- (mwf_ip)addRow:(id)object atSection:(NSUInteger)sectionIndex;
+- (mwf_ip)addRow:(id)object inSection:(NSUInteger)sectionIndex;
 {
   mwf_ip ip = nil;
   if (object && sectionIndex == 0) {
@@ -110,7 +212,7 @@
 }
 - (mwf_ip)addRow:(id)object;
 {
-  return [self addRow:object atSection:0];
+  return [self addRow:object inSection:0];
 }
 - (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
 {
@@ -134,13 +236,57 @@
   }
   return ip;
 }
-// Bulk Updates
-- (void)performUpdates:(void(^)(MwfTableData *))updates;
+// Update data
+- (NSUInteger)updateSection:(id)object atIndex:(NSUInteger)section;
 {
-  
+  return NSNotFound;
+}
+- (mwf_ip)updateRow:(id)object atIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip ip = nil;
+  if (object && indexPath) {
+    [_dataArray removeObjectAtIndex:indexPath.row];
+    [_dataArray insertObject:object atIndex:indexPath.row];
+    ip = indexPath;
+  }
+  return ip;
+}
+
+// Bulk Updates
+- (MwfTableDataUpdates *)performUpdates:(void(^)(MwfTableData *))updates;
+{
+  MwfTableDataUpdates * u = nil;
+  if (updates != NULL) {
+    MwfTableDataProxy * proxy = [[MwfTableDataProxy alloc] initWithTableData:self];
+    [proxy beginUpdates];
+    updates(proxy);
+    [proxy endUpdates];
+    u = [[MwfTableDataUpdates alloc] init];
+    u.reloadSections = proxy.reloadedSectionIndexSets;
+    u.deleteSections = proxy.deletedSectionIndexSets;
+    u.insertSections = proxy.insertedSectionIndexSets;
+    u.reloadRows = proxy.reloadedRowIndexPaths;
+    u.deleteRows = proxy.deletedRowIndexPaths;
+    u.insertRows = proxy.insertedRowIndexPaths;
+  }
+  return u;
+}
+// Private Methods
+- (NSArray *) dataArray;
+{
+  return _dataArray;
+}
+- (NSArray *) sectionArray;
+{
+  return _sectionArray;
 }
 @end
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark - MwfTableDataWithSections
 @implementation MwfTableDataWithSections
 // Private Mehos
@@ -170,6 +316,10 @@
 - (NSUInteger) numberOfRows;
 {
   return [self numberOfRowsInSection:0];
+}
+- (id) objectForSectionAtIndex:(NSUInteger)section;
+{
+  return [_sectionArray objectAtIndex:section];
 }
 - (id)objectForRowAtIndexPath:(mwf_ip)ip;
 {
@@ -220,7 +370,7 @@
   }
   return section;
 }
-- (mwf_ip)addRow:(id)object atSection:(NSUInteger)sectionIndex;
+- (mwf_ip)addRow:(id)object inSection:(NSUInteger)sectionIndex;
 {
   mwf_ip ip = nil;
   if (object) {
@@ -242,7 +392,7 @@
 }
 - (mwf_ip)addRow:(id)object;
 {
-  return [self addRow:object atSection:0];
+  return [self addRow:object inSection:0];
 }
 - (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
 {
@@ -268,13 +418,288 @@
   }
   return ip;
 }
-// Bulk Updates
-- (void)performUpdates:(void(^)(MwfTableData *))updates;
+// Update data
+- (NSUInteger)updateSection:(id)object atIndex:(NSUInteger)section;
 {
+  NSUInteger s = NSNotFound;
+  if (object) {
+    [_sectionArray removeObjectAtIndex:section];
+    [_sectionArray insertObject:object atIndex:section];
+    s = section;
+  }
+  return s;
+}
+- (mwf_ip)updateRow:(id)object atIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip ip = nil;
+  if (object && indexPath) {
+    NSMutableArray * rows = [_dataArray objectAtIndex:indexPath.section];
+    [rows removeObjectAtIndex:indexPath.row];
+    [rows insertObject:object atIndex:indexPath.row];
+    ip = indexPath;
+  }
+  return ip;
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation MwfTableDataProxy
+@synthesize reloadedSectionIndexSets = _reloadedSectionIndexSets;
+@synthesize deletedSectionIndexSets = _deletedSectionIndexSets;
+@synthesize insertedSectionIndexSets = _insertedSectionIndexSets;
+@synthesize reloadedRowIndexPaths = _reloadedRowIndexPaths;
+@synthesize deletedRowIndexPaths = _deletedRowIndexPaths;
+@synthesize insertedRowIndexPaths = _insertedRowIndexPaths;
+
+- (id) initWithTableData:(MwfTableData *)tableData;
+{
+  self = [super init];
+  if (self) {
+    _proxiedTableData = tableData;
+    _dataArray = nil;
+    _sectionArray = nil;
+  }
+  return self;
+}
+// Updates
+- (void)beginUpdates;
+{
+  _originalTableSection = [_proxiedTableData.sectionArray copy];
+  if ([_proxiedTableData isKindOfClass:[MwfTableDataWithSections class]]) {
+    NSMutableArray * originalTableData = [[NSMutableArray alloc] init];
+    for (NSArray * rows in _proxiedTableData.dataArray) {
+      [originalTableData addObject:[rows copy]];
+    }
+    _originalTableData = originalTableData;
+  } else {
+    _originalTableData = [_proxiedTableData.dataArray copy];
+  }
+  _deletedSections = [[NSMutableArray alloc] init];
+  _insertedSections = [[NSMutableArray alloc] init];
+  _reloadedSections = [[NSMutableArray alloc] init];
+  _deletedRows = [[NSMutableArray alloc] init];
+  _insertedRows = [[NSMutableArray alloc] init];
+  _reloadedRows = [[NSMutableArray alloc] init];
+}
+
+- (NSUInteger) originalIndexForSection:(id)section;
+{
+  return [_originalTableSection indexOfObject:section];
+}
+
+- (mwf_ip) originalIndexPathForRow:(id)object;
+{
+  mwf_ip r = nil;
+  NSUInteger section = 0;
+  NSUInteger row = NSNotFound;
+  if ([_proxiedTableData isKindOfClass:[MwfTableDataWithSections class]]) {
+    for (NSArray * rows in _originalTableData) {
+      row = [rows indexOfObject:object];
+      if (row != NSNotFound) break;
+      section++;
+    }
+  } else {
+    row = [_originalTableData indexOfObject:object];
+  }
+  if (row != NSNotFound) {
+    r = $ip(section,row);
+  }
+  return r;
+}
+
+- (void)endUpdates;
+{
+  if ([_reloadedSections count] > 0) _reloadedSectionIndexSets = [[NSMutableIndexSet alloc] init];
+  if ([_deletedSections count] > 0) _deletedSectionIndexSets = [[NSMutableIndexSet alloc] init];
+  if ([_insertedSections count] > 0) _insertedSectionIndexSets = [[NSMutableIndexSet alloc] init];
+  if ([_reloadedRows count] > 0) _reloadedRowIndexPaths = [[NSMutableArray alloc] init];
+  if ([_deletedRows count] > 0) _deletedRowIndexPaths = [[NSMutableArray alloc] init];
+  if ([_insertedRows count] > 0) _insertedRowIndexPaths = [[NSMutableArray alloc] init];
   
+  // reloaded rows
+  for (id reloaded in _reloadedRows) {
+    mwf_ip ip = [self originalIndexPathForRow:reloaded];
+    if (ip && ![_reloadedRowIndexPaths containsObject:ip]) {
+      [_reloadedRowIndexPaths addObject:ip];
+    }
+  }
+  // reloaded sections
+  for (id reloaded in _reloadedSections) {
+    NSUInteger index = [self originalIndexForSection:reloaded];
+    if (index != NSNotFound && ![_reloadedSectionIndexSets containsIndex:index]) {
+      [_reloadedSectionIndexSets addIndex:index];
+    }
+  }
+  
+  // deleted rows
+  for (id deleted in _deletedRows) {
+    mwf_ip ip = [self originalIndexPathForRow:deleted];
+    if (ip) {
+      [_deletedRowIndexPaths addObject:ip];
+    }
+  }
+  // deleted sections
+  for (id deleted in _deletedSections) {
+    NSUInteger index = [self originalIndexForSection:deleted];
+    if (index != NSNotFound) {
+      [_deletedSectionIndexSets addIndex:index];
+    }
+  }
+  
+  // inserted rows
+  for (id inserted in _insertedRows) {
+    mwf_ip ip = [self indexPathForRow:inserted];
+    if (ip) {
+      [_insertedRowIndexPaths addObject:ip];
+    }
+  }
+  // inserted sections
+  for (id inserted in _insertedSections) {
+    NSUInteger index = [self indexForSection:inserted];
+    if (index != NSNotFound) {
+      [_insertedSectionIndexSets addIndex:index];
+    }
+  }
+  
+  // sorting the results
+  NSComparisonResult(^Comparator)(mwf_ip ip1, mwf_ip ip2) = ^NSComparisonResult(mwf_ip ip1, mwf_ip ip2) {
+    if (ip1.section == ip2.section) {
+      return ip1.row > ip2.row ? NSOrderedDescending : NSOrderedAscending;
+    }
+    return ip1.section > ip2.section ? NSOrderedDescending : NSOrderedAscending;
+  };
+  
+  [_reloadedSectionIndexSets removeIndexes:_deletedSectionIndexSets];
+  [_reloadedRowIndexPaths removeObjectsInArray:_deletedRowIndexPaths];
+  
+  [_reloadedRowIndexPaths sortUsingComparator:Comparator];
+  [_deletedRowIndexPaths sortUsingComparator:Comparator];
+  [_insertedRowIndexPaths sortUsingComparator:Comparator];  
+
+  _originalTableSection = nil;
+  _originalTableData = nil;
+  _deletedSections = nil;
+  _insertedSections = nil;
+  _reloadedSections = nil;
+  _deletedRows = nil;
+  _insertedRows = nil;
+  _reloadedRows = nil;
+ 
+}
+
+// Accessing data
+- (NSUInteger) numberOfSections;
+{
+  return _proxiedTableData.numberOfSections;
+}
+- (NSUInteger) numberOfRowsInSection:(NSUInteger)section;
+{
+  return [_proxiedTableData numberOfRowsInSection:section];
+}
+- (NSUInteger) numberOfRows;
+{
+  return _proxiedTableData.numberOfRows;
+}
+- (id) objectForRowAtIndexPath:(mwf_ip)ip;
+{
+  return [_proxiedTableData objectForRowAtIndexPath:ip];
+}
+- (mwf_ip) indexPathForRow:(id)object;
+{
+  return [_proxiedTableData indexPathForRow:object];
+}
+- (NSUInteger) indexForSection:(id)sectionObject;
+{
+  return [_proxiedTableData indexForSection:sectionObject];  
+}
+
+// Inserting data
+- (NSUInteger)addSection:(id)sectionObject;
+{
+  NSUInteger r = [_proxiedTableData addSection:sectionObject];
+  [_insertedSections addObject:sectionObject];
+  return r;
+}
+- (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;
+{
+  NSUInteger r = [_proxiedTableData insertSection:sectionObject atIndex:sectionIndex];
+  [_insertedSections addObject:sectionObject];
+  return r;
+}
+- (mwf_ip)addRow:(id)object inSection:(NSUInteger)sectionIndex;
+{
+  mwf_ip r = [_proxiedTableData addRow:object inSection:sectionIndex];
+  [_insertedRows addObject:object];
+  return r;
+}
+- (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;
+{
+  mwf_ip r = [_proxiedTableData insertRow:object atIndexPath:indexPath];
+  [_insertedRows addObject:object];
+  return r;
+}
+- (mwf_ip)addRow:(id)object;
+{
+  mwf_ip r = [_proxiedTableData addRow:object];
+  [_insertedRows addObject:object];
+  return r;
+}
+- (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
+{
+  mwf_ip r = [_proxiedTableData insertRow:object atIndex:index];
+  [_insertedRows addObject:object];
+  return r;
+}
+
+// Deleting data
+- (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;
+{
+  [_deletedRows addObject:[_proxiedTableData objectForRowAtIndexPath:indexPath]];
+  mwf_ip r = [_proxiedTableData removeRowAtIndexPath:indexPath];
+  return r;
+}
+- (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;
+{
+  id deleted = [_proxiedTableData objectForSectionAtIndex:sectionIndex];
+  [_deletedSections addObject:deleted];
+  NSUInteger r = [_proxiedTableData removeSectionAtIndex:sectionIndex];
+  return r;
+}
+
+// Update data
+- (NSUInteger)updateSection:(id)object atIndex:(NSUInteger)section;
+{
+  id obj = [_proxiedTableData objectForSectionAtIndex:section];
+  NSUInteger s = [_proxiedTableData updateSection:object atIndex:section];
+  if (obj && s != NSNotFound) [_reloadedSections addObject:obj];
+  return section;
+}
+- (mwf_ip)updateRow:(id)object atIndexPath:(mwf_ip)indexPath;
+{
+  id obj = [_proxiedTableData objectForRowAtIndexPath:indexPath];
+  mwf_ip ip = [_proxiedTableData updateRow:object atIndexPath:indexPath];
+  if (obj && ip) [_reloadedRows addObject:obj];
+  return ip;
+}
+
+// Bulk Updates
+- (MwfTableDataUpdates *)performUpdates:(void(^)(MwfTableData *))updates;
+{
+  [NSException raise:@"UnsupportedOperation" format:@"Unsupported operation"];
+  return nil;
 }
 @end
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark - MwfDefaultTableLoadingView
 @implementation MwfDefaultTableLoadingView
 @synthesize textLabel = _textLabel;
@@ -330,9 +755,14 @@
 }
 @end
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark - MwfTableViewController
 @interface MwfTableViewController ()
-
+- (void)initialize;
 @end
 
 @implementation MwfTableViewController
@@ -340,13 +770,32 @@
 @synthesize loading            = _loading;
 @synthesize loadingView        = _loadingView;
 @synthesize loadingStyle       = _loadingStyle;
+@synthesize tableData          = _tableData;
 
+- (void)initialize;
+{
+  _tableData = [self createAndInitTableData];
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
+    [self initialize];
   }
   return self;
+}
+- (id)initWithStyle:(UITableViewStyle)style;
+{
+  self = [super initWithStyle:style];
+  if (self) {
+    [self initialize];
+  }
+  return self;
+}
+- (void)awakeFromNib;
+{
+  [super awakeFromNib];
+  [self initialize];
 }
 - (void)loadView;
 {
@@ -496,4 +945,72 @@
     [defaultLoadingView.activityIndicatorView stopAnimating];
   }
 }
+
+#pragma mark - Table Data
+- (MwfTableData *)createAndInitTableData;
+{
+  return [MwfTableData createTableData];
+}
+- (void)setTableData:(MwfTableData *)tableData;
+{
+  if (tableData) {
+    _tableData = tableData;
+    __block MwfTableViewController * weakSelf = self;
+    void(^go)(void) = ^{
+      [weakSelf.tableView reloadData];
+    };
+    if ([NSThread isMainThread]) {
+      go();
+    } else {
+      $inMain(go);
+    }
+  }
+}
+- (void)performUpdates:(void(^)(MwfTableData *))updates;
+{
+  if (updates != NULL) {
+    MwfTableDataUpdates * u = [_tableData performUpdates:updates];
+    if (u) {
+      void(^go)(void) = ^{
+        UITableViewRowAnimation rowAnimation = UITableViewRowAnimationAutomatic;
+        [self.tableView beginUpdates];
+        if (u.insertSections.count > 0) { 
+          [self.tableView insertSections:u.insertSections withRowAnimation:rowAnimation]; 
+        }
+        if (u.deleteSections.count > 0) {
+          [self.tableView deleteSections:u.deleteSections withRowAnimation:rowAnimation];
+        }
+        if (u.reloadSections.count > 0) {
+          [self.tableView reloadSections:u.reloadSections withRowAnimation:rowAnimation];
+        }
+        if (u.deleteRows.count > 0) {
+          [self.tableView deleteRowsAtIndexPaths:u.deleteRows withRowAnimation:rowAnimation];
+        }
+        if (u.reloadRows.count > 0) {
+          [self.tableView reloadRowsAtIndexPaths:u.reloadRows withRowAnimation:rowAnimation];
+        }
+        if (u.insertRows.count > 0) {
+          [self.tableView insertRowsAtIndexPaths:u.insertRows withRowAnimation:rowAnimation];
+        }
+        [self.tableView endUpdates];
+      };
+      if ([NSThread isMainThread]) {
+        go();
+      } else {
+        $inMain(go);
+      }
+    }
+  }
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+{
+  return _tableData.numberOfSections;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+{
+  return [_tableData numberOfRowsInSection:section];
+}
+#pragma mark - UITableViewDelegate
 @end

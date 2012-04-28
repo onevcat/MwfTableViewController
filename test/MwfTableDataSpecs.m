@@ -30,6 +30,9 @@ describe(@"no section", ^{
     
     ip = [data addRow:[OCMArg any]];
     expect(ip).toEqual($ip(0,0));
+    expect([data updateRow:[OCMArg any] atIndexPath:$ip(0,0)]).toEqual($ip(0,0));
+    expect([data updateSection:[OCMArg any] atIndex:0]).toEqual(NSNotFound);
+    expect([data updateRow:nil atIndexPath:$ip(0,0)]).toBeNil();
     
     ip = [data addRow:nil];
     expect(ip).toBeNil();
@@ -160,7 +163,7 @@ describe(@"no section", ^{
       e = excp;
     }
     expect(e).Not.toBeNil();
-    
+    expect([data objectForSectionAtIndex:0]).toBeNil();
   });
   
 });
@@ -189,6 +192,7 @@ describe(@"with sections", ^{
     
     sidx = [data indexForSection:section];
     expect(sidx).toEqual(0);
+    expect([data objectForSectionAtIndex:0]).toEqual(section);
 
     // insert first object
     ip = [data insertRow:obj atIndexPath:$ip(0,0)];
@@ -196,6 +200,11 @@ describe(@"with sections", ^{
     
     ip = [data indexPathForRow:obj];
     expect(ip).toEqual($ip(0,0));
+    
+    expect([data updateSection:section atIndex:0]).toEqual(0);
+    expect([data updateSection:nil atIndex:0]).toEqual(NSNotFound);
+    expect([data updateRow:obj atIndexPath:$ip(0,0)]).toEqual($ip(0,0));
+    expect([data updateRow:nil atIndexPath:$ip(0,0)]).toBeNil();
     
     // insert nil
     sidx = [data insertSection:nil atIndex:0];

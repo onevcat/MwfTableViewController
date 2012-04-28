@@ -52,6 +52,93 @@ If you need to, you can override few methods to provide custom look and feel for
   }
   ```  
 
+### Table Data
+
+A class `MwfTableData` is provided to manage your table backing store.
+Instead of using `NSArray`, this class provides all the convenience you need working with table view.
+
+_Creating Table Data_
+
+* `+ (MwfTableData *) createTableData;`
+* `+ (MwfTableData *) createTableDataWithSections;`
+
+_Accessing data_
+
+* `- (NSUInteger) numberOfSections;`
+* `- (NSUInteger) numberOfRowsInSection:(NSUInteger)section;`
+* `- (NSUInteger) numberOfRows;`
+* `- (id) objectForSectionAtIndex:(NSUInteger)section;`
+* `- (id) objectForRowAtIndexPath:(mwf_ip)ip;`
+* `- (mwf_ip) indexPathForRow:(id)object;`
+* `- (NSUInteger) indexForSection:(id)sectionObject;`
+
+_Inserting data_
+
+* `- (NSUInteger)addSection:(id)sectionObject;`
+* `- (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;`
+* `- (mwf_ip)addRow:(id)object inSection:(NSUInteger)sectionIndex;`
+* `- (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;`
+* `- (mwf_ip)addRow:(id)object;`
+* `- (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;`
+
+_Deleting data_
+
+* `- (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;`
+* `- (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;`
+
+_Updating data_
+
+* `- (NSUInteger)updateSection:(id)object atIndex:(NSUInteger)section;`
+* `- (mwf_ip)updateRow:(id)object atIndexPath:(mwf_ip)indexPath;`
+
+### Using `MwfTableData` in MwfTableViewController subclasses
+
+_Override `createAndInitTableData`_
+
+In this method, you can create `MwfTableData` instance using one of the creation methods (with or without section) and initialize with some data.
+
+   ```objective-c
+   - (MwfTableData *)createAndInitTableData;
+   {
+     MwfTableData * tableData = [MwfTableData createTableData];
+     [tableData addRow:$data(@"Row 1")];
+     [tableData addRow:$data(@"Row 2")];
+     [tableData addRow:$data(@"Row 3")];
+     [tableData addRow:$data(@"Load More")];
+     return tableData;
+   }
+   ```
+
+_Performing bulk updates_
+
+`MwfTableViewController` provides method `performUpdates:(void(^)(MwfTableData *))updatesBlock` which you can call to perform bulk updates to your table view (add,remove,update sections/rows). This method will update the backing store as well as updating the table view (using `UITableViewRowAnimationAutomatic` for row animation). This method frees you from tracking the changed index sets and paths, and lets you focus on the application logic that updates your table.
+
+  ```objective-c
+  - (void)loadMoreData {
+     
+     [self performUpdates:^(MwfTableData * data) {
+     
+        // ... call the insert/delete/update method of MwfTableData
+        
+     }];
+  }
+  ```
+  
+_Reload table view_
+
+Setting table data via `tableData` property of `MwfTableViewController` will trigger tableView's `reloadData`.
+
+   ```objective-c
+   - (void)reloadEntireTable { // a method in your MwfTableViewController subclass
+   
+      MwfTableData * tableData = [MwfTableData createTableDataWithSections];
+      [tableData addSection:@"Section 1"];
+      [tableData addRow:@"Row 1" inSection:0];
+      [tableData addRow:@"Row 2" inSection:0];
+      self.tableData = tableData;
+   }
+   ```
+
 ## Licensing
 
 MwfTableViewController is licensed under MIT License

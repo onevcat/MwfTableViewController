@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-
 #pragma mark - MwfTableData
 #define mwf_ip NSIndexPath*
+#define mwf_indexSet(_idx_) [NSIndexSet indexSetWithIndex:(_idx_)]
+
+@interface MwfTableDataUpdates : NSObject
+@property (nonatomic,readonly) NSIndexSet * reloadSections;
+@property (nonatomic,readonly) NSIndexSet * deleteSections;
+@property (nonatomic,readonly) NSIndexSet * insertSections;
+@property (nonatomic,readonly) NSArray    * reloadRows;
+@property (nonatomic,readonly) NSArray    * deleteRows;
+@property (nonatomic,readonly) NSArray    * insertRows;
+@end
+
 @interface MwfTableData : NSObject {
   NSMutableArray * _sectionArray;
   NSMutableArray * _dataArray;
@@ -23,6 +33,7 @@
 - (NSUInteger) numberOfSections;
 - (NSUInteger) numberOfRowsInSection:(NSUInteger)section;
 - (NSUInteger) numberOfRows;
+- (id) objectForSectionAtIndex:(NSUInteger)section;
 - (id) objectForRowAtIndexPath:(mwf_ip)ip;
 - (mwf_ip) indexPathForRow:(id)object;
 - (NSUInteger) indexForSection:(id)sectionObject;
@@ -30,7 +41,7 @@
 // Inserting data
 - (NSUInteger)addSection:(id)sectionObject;
 - (NSUInteger)insertSection:(id)sectionObject atIndex:(NSUInteger)sectionIndex;
-- (mwf_ip)addRow:(id)object atSection:(NSUInteger)sectionIndex;
+- (mwf_ip)addRow:(id)object inSection:(NSUInteger)sectionIndex;
 - (mwf_ip)insertRow:(id)object atIndexPath:(mwf_ip)indexPath;
 - (mwf_ip)addRow:(id)object;
 - (mwf_ip)insertRow:(id)object atIndex:(NSUInteger)index;
@@ -39,8 +50,13 @@
 - (mwf_ip)removeRowAtIndexPath:(mwf_ip)indexPath;
 - (NSUInteger)removeSectionAtIndex:(NSUInteger)sectionIndex;
 
+// Update data
+- (NSUInteger)updateSection:(id)object atIndex:(NSUInteger)section;
+- (mwf_ip)updateRow:(id)object atIndexPath:(mwf_ip)indexPath;
+
 // Bulk Updates
-- (void)performUpdates:(void(^)(MwfTableData *))updates;
+- (MwfTableDataUpdates *)performUpdates:(void(^)(MwfTableData *))updates;
+
 @end
 
 #pragma mark - MwfTableViewController
@@ -56,26 +72,9 @@ typedef enum {
 @property (nonatomic) BOOL                           loading;
 @property (nonatomic,readonly) UIView              * tableHeaderTopView;
 @property (nonatomic,readonly) UIView              * loadingView;
+@property (nonatomic,retain)   MwfTableData        * tableData;
 
 - (void)setLoading:(BOOL)loading animated:(BOOL)animated;
-@end
-
-@interface MwfTableViewController (InsertDeleteOperations)
-/**
- * http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9
- *
- * To insert and delete a group of rows and sections in a table view, first prepare the array (or arrays) that are the source of data for 
- * the sections and rows. After rows and sections are deleted and inserted, the resulting rows and sections are populated from this data 
- * store.
- * 
- * Next, call the beginUpdates method, followed by invocations of insertRowsAtIndexPaths:withRowAnimation:, deleteRowsAtIndexPaths:
- * withRowAnimation:, insertSections:withRowAnimation:, or deleteSections:withRowAnimation:. Conclude the animation block by calling 
- * endUpdates. Listing 7-8 illustrates this procedure.
- *
- */
-@end
-
-@interface MwfTableViewController (BackgroundLoading)
 @end
 
 @interface MwfTableViewController (OverrideForCustomView)
@@ -85,8 +84,17 @@ typedef enum {
 - (void)didHideLoadingView:(UIView *)loadingView;
 @end
 
+@interface MwfTableViewController (TableData)
+- (MwfTableData *) createAndInitTableData;
+- (void)performUpdates:(void(^)(MwfTableData *))updates;
+@end
+
 @interface MwfDefaultTableLoadingView : UIView
 @property (nonatomic,readonly) UILabel * textLabel;
 @property (nonatomic,readonly) UIActivityIndicatorView * activityIndicatorView;
 + (MwfDefaultTableLoadingView *)create;
 @end
+
+#ifdef CK_SHORTHAND
+#define $indexSet(_idx_) mwf_indexSet(_idx_)
+#endif

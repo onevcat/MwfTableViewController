@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MwfTableViewController.h"
 
-@interface MwfDemoTableViewController : MwfTableViewController
-
+@interface MwfDemoTableViewController : MwfTableViewController {
+  BOOL _withSection;
+}
 @end
